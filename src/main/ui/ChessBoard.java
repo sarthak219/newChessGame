@@ -127,7 +127,8 @@ public class ChessBoard extends JPanel {
             darkColour = new Color(31, 31, 31);
         } else if (this.boardTheme == BoardTheme.PURPLE) {
             lightColour = new Color(248, 198, 255);
-            darkColour = new Color(123, 53, 128);
+//            darkColour = new Color(123, 53, 128);
+            darkColour = new Color(135, 69, 139);
         } else if (this.boardTheme == BoardTheme.LIGHT_GREY) {
             lightColour = new Color(255, 255, 255, 255);
             darkColour = new Color(180, 180, 180);
@@ -176,7 +177,6 @@ public class ChessBoard extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-//                System.out.println("pressed");
                 int x = e.getX();
                 int y = e.getY();
                 selectedSquare = getSquareAt(x, y);
@@ -185,7 +185,6 @@ public class ChessBoard extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-//                System.out.println("released");
                 int x = e.getX();
                 int y = e.getY();
                 if (xCor != getJ(x) || yCor != getI(y)) {

@@ -26,16 +26,8 @@ public class King extends Piece {
         int i = this.assignedSquare.getRow();
         int start;
         int end;
-        if (i == 0) {
-            start = 0;
-            end = 1;
-        } else if (i == 7) {
-            start = 6;
-            end = 7;
-        } else {
-            start = i - 1;
-            end = i + 1;
-        }
+        start = i - 1;
+        end = i + 1;
         for (int k = start; k <= end; ++k) {
             checkRow(k);
         }
@@ -46,19 +38,13 @@ public class King extends Piece {
         int start;
         int end;
         Square square;
-        if (j == 0) {
-            start = 0;
-            end = 1;
-        } else if (j == 7) {
-            start = 6;
-            end = 7;
-        } else {
-            start = j - 1;
-            end = j + 1;
-        }
+        start = j - 1;
+        end = j + 1;
         for (int k = start; k <= end; ++k) {
-            square = board.getSquareAt(i, k);
-            if (!checkPieceValidity(square)) this.validSquares.add(square);
+            if (i >= 0 && i <= 7 && j >= 0 && j <= 7) {
+                square = board.getSquareAt(i, k);
+                if (!checkPieceValidity(square)) this.validSquares.add(square);
+            }
         }
     }
 }
