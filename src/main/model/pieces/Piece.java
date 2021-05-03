@@ -77,7 +77,11 @@ public abstract class Piece {
         }
     }
 
-    private boolean checkPieceValidity(Square square) {
+    //REQUIRES: square != null
+    //MODIFIES: this
+    //EFFECTS: returns true if the given square has a piece, adds it to this.validSquares if the piece is of the
+    // opposite colour except king, false otherwise.
+    public boolean checkPieceValidity(Square square) {
         if (square.getPiece() != null) {
             if (isOppositeColourAndNotKing(square, this.colour)) {
                 this.validSquares.add(square);

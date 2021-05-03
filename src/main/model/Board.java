@@ -28,15 +28,18 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (this.board[i][j].getPiece() != null) {
-                    System.out.printf("%-10s", this.board[i][j].getPiece().getName() + ", ");
+                    System.out.printf("%-10s", this.board[i][j].getPiece().getName());
                 } else {
                     System.out.printf("%-10s", "---");
                 }
             }
+            for (int j = 0; j < 8; ++j) {
+                System.out.printf("%-10s", "(" + i + ", " + j + ")");
+            }
             System.out.println();
         }
 
-        System.out.println("----------------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------------------");
     }
 
     //EFFECTS: places the pieces on the chess board
