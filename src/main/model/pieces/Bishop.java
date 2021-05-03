@@ -1,7 +1,6 @@
 package main.model.pieces;
 
 import main.model.Board;
-import main.model.Square;
 
 import java.util.ArrayList;
 

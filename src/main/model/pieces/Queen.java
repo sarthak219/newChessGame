@@ -37,6 +37,10 @@ public class Queen extends Piece {
     }
 
     private void checkDiagonally() {
+        checkTopLeftDiagonal();
+        checkTopRightDiagonal();
+        checkBottomLeftDiagonal();
+        checkBottomRightDiagonal();
     }
 
 }
