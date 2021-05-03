@@ -176,7 +176,7 @@ public class ChessBoard extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("pressed");
+//                System.out.println("pressed");
                 int x = e.getX();
                 int y = e.getY();
                 selectedSquare = getSquareAt(x, y);
@@ -185,7 +185,7 @@ public class ChessBoard extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("released");
+//                System.out.println("released");
                 int x = e.getX();
                 int y = e.getY();
                 if (xCor != getJ(x) || yCor != getI(y)) {

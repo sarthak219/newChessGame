@@ -1,6 +1,9 @@
 package main.model.pieces;
 
 import main.model.Board;
+import main.model.Square;
+
+import java.util.ArrayList;
 
 /**
  * represents the Bishop piece of a chess game
@@ -18,6 +21,10 @@ public class Bishop extends Piece {
 
     @Override
     public void calculateValidSquares() {
-
+        this.validSquares = new ArrayList<>();
+        checkTopRightDiagonal();
+        checkTopLeftDiagonal();
+        checkBottomRightDiagonal();
+        checkBottomLeftDiagonal();
     }
 }

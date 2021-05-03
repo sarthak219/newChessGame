@@ -1,7 +1,8 @@
 package main.model.pieces;
 
 import main.model.Board;
-import main.model.Square;
+
+import java.util.ArrayList;
 
 /**
  * represents the Queen piece of a chess game
@@ -19,8 +20,23 @@ public class Queen extends Piece {
 
     @Override
     public void calculateValidSquares() {
-        Square square = board.getSquareAt(5, 3);
-        this.validSquares.add(square);
-
+        this.validSquares = new ArrayList<>();
+        checkVertically();
+        checkHorizontally();
+        checkDiagonally();
     }
+
+    private void checkVertically() {
+        checkSquaresBelow();
+        checkSquaresAbove();
+    }
+
+    private void checkHorizontally() {
+        checkSquaresToTheLeft();
+        checkSquaresToTheRight();
+    }
+
+    private void checkDiagonally() {
+    }
+
 }

@@ -35,10 +35,6 @@ public abstract class Piece {
         this.assignedSquare = assignedSquare;
     }
 
-    public Square getAssignedSquare() {
-        return assignedSquare;
-    }
-
     public PieceColour getColour() {
         return colour;
     }
@@ -61,5 +57,146 @@ public abstract class Piece {
 
     public boolean isOppositeColourAndNotKing(Square square, PieceColour colour) {
         return (square.getPiece().getColour() != colour && square.getPiece().getName() != Name.KING);
+    }
+
+    public void checkSquaresAbove() {
+        int i = this.assignedSquare.getRow() - 1;
+        int j = this.assignedSquare.getColumn();
+        Square square;
+        while (i >= 0) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i--;
+        }
+    }
+
+    public void checkSquaresBelow() {
+        int i = 1 + this.assignedSquare.getRow();
+        int j = this.assignedSquare.getColumn();
+        Square square;
+        while (i <= 7) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i++;
+        }
+    }
+
+    public void checkSquaresToTheLeft() {
+        int i = this.assignedSquare.getRow();
+        int j = this.assignedSquare.getColumn() - 1;
+        Square square;
+        while (j >= 0) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            j--;
+        }
+
+    }
+
+    public void checkSquaresToTheRight() {
+        int i = this.assignedSquare.getRow();
+        int j = this.assignedSquare.getColumn() + 1;
+        Square square;
+        while (j <= 7) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            j++;
+        }
+    }
+
+    public void checkTopRightDiagonal() {
+        int i = this.assignedSquare.getRow() - 1;
+        int j = this.assignedSquare.getColumn() + 1;
+        Square square;
+        while (i >= 0 && j <= 7) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i--;
+            j++;
+        }
+    }
+
+    public void checkTopLeftDiagonal() {
+        int i = this.assignedSquare.getRow() - 1;
+        int j = this.assignedSquare.getColumn() - 1;
+        Square square;
+        while (i >= 0 && j >= 0) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i--;
+            j--;
+        }
+    }
+
+    public void checkBottomRightDiagonal() {
+        int i = this.assignedSquare.getRow() + 1;
+        int j = this.assignedSquare.getColumn() + 1;
+        Square square;
+        while (i <= 7 && j <= 7) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i++;
+            j++;
+        }
+    }
+
+    public void checkBottomLeftDiagonal() {
+        int i = this.assignedSquare.getRow() + 1;
+        int j = this.assignedSquare.getColumn() - 1;
+        Square square;
+        while (i <= 7 && j >= 0) {
+            square = board.getSquareAt(i, j);
+            if (square.getPiece() != null) {
+                if (isOppositeColourAndNotKing(square, this.colour)) {
+                    this.validSquares.add(square);
+                }
+                return;
+            }
+            this.validSquares.add(square);
+            i++;
+            j--;
+        }
     }
 }
