@@ -55,10 +55,16 @@ public abstract class Piece {
     //EFFECTS: adds all teh squares the piece can go to to this.validSquares
     public abstract void calculateValidSquares();
 
+    //REQUIRES: square != null;
+    //EFFECTS: returns true if the piece in the given square is not a KING and its colour is opposite to the
+    // given colour, false otherwise
     public boolean isOppositeColourAndNotKing(Square square, PieceColour colour) {
         return (square.getPiece().getColour() != colour && square.getPiece().getName() != Name.KING);
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares above this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkSquaresAbove() {
         int i = this.assignedSquare.getRow() - 1;
         int j = this.assignedSquare.getColumn();
@@ -76,6 +82,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares below this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkSquaresBelow() {
         int i = 1 + this.assignedSquare.getRow();
         int j = this.assignedSquare.getColumn();
@@ -93,6 +102,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares to the left of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkSquaresToTheLeft() {
         int i = this.assignedSquare.getRow();
         int j = this.assignedSquare.getColumn() - 1;
@@ -111,6 +123,9 @@ public abstract class Piece {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares to the right of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkSquaresToTheRight() {
         int i = this.assignedSquare.getRow();
         int j = this.assignedSquare.getColumn() + 1;
@@ -128,6 +143,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares in the top right diagonal of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkTopRightDiagonal() {
         int i = this.assignedSquare.getRow() - 1;
         int j = this.assignedSquare.getColumn() + 1;
@@ -146,6 +164,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares in the top left diagonal of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkTopLeftDiagonal() {
         int i = this.assignedSquare.getRow() - 1;
         int j = this.assignedSquare.getColumn() - 1;
@@ -164,6 +185,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares in the bottom right diagonal of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkBottomRightDiagonal() {
         int i = this.assignedSquare.getRow() + 1;
         int j = this.assignedSquare.getColumn() + 1;
@@ -182,6 +206,9 @@ public abstract class Piece {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: checks all the squares in the bottom left diagonal of this piece, adds a square to this.validSquares
+    // if the square doesn't have a piece or has a piece of the opposite colour except king
     public void checkBottomLeftDiagonal() {
         int i = this.assignedSquare.getRow() + 1;
         int j = this.assignedSquare.getColumn() - 1;
