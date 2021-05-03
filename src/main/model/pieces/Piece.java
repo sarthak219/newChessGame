@@ -58,4 +58,8 @@ public abstract class Piece {
     //MODIFIES: this
     //EFFECTS: adds all teh squares the piece can go to to this.validSquares
     public abstract void calculateValidSquares();
+
+    public boolean isOppositeColourAndNotKing(Square square, PieceColour colour) {
+        return (square.getPiece().getColour() != colour && square.getPiece().getName() != Name.KING);
+    }
 }

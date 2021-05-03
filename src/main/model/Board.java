@@ -28,7 +28,7 @@ public class Board {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (this.board[i][j].getPiece() != null) {
-                    System.out.printf("%-10s", this.board[i][j].getPiece().getAssignedSquare().getName() + ", ");
+                    System.out.printf("%-10s", this.board[i][j].getPiece().getName() + ", ");
                 } else {
                     System.out.printf("%-10s", "---");
                 }
@@ -54,15 +54,14 @@ public class Board {
         board[0][5].setPiece(new Bishop(PieceColour.BLACK, this));
         board[0][6].setPiece(new Knight(PieceColour.BLACK, this));
         board[0][7].setPiece(new Rook(PieceColour.BLACK, this));
-        board[0][0].getPiece().setAssignedSquare(board[0][0]);
-        board[0][1].getPiece().setAssignedSquare(board[0][1]);
-        board[0][2].getPiece().setAssignedSquare(board[0][2]);
-        board[0][3].getPiece().setAssignedSquare(board[0][3]);
-        board[0][4].getPiece().setAssignedSquare(board[0][4]);
-        board[0][5].getPiece().setAssignedSquare(board[0][5]);
-        board[0][6].getPiece().setAssignedSquare(board[0][6]);
-        board[0][7].getPiece().setAssignedSquare(board[0][7]);
+        setupAssignedSquareForPiece(0);
         setupBlackPawns();
+    }
+
+    private void setupAssignedSquareForPiece(int i) {
+        for (int j = 0; j < 8; ++j) {
+            board[i][j].getPiece().setAssignedSquare(board[i][j]);
+        }
     }
 
     private void setupBlackPawns() {
@@ -81,14 +80,7 @@ public class Board {
         board[7][5].setPiece(new Bishop(PieceColour.WHITE, this));
         board[7][6].setPiece(new Knight(PieceColour.WHITE, this));
         board[7][7].setPiece(new Rook(PieceColour.WHITE, this));
-        board[7][0].getPiece().setAssignedSquare(board[7][0]);
-        board[7][1].getPiece().setAssignedSquare(board[7][1]);
-        board[7][2].getPiece().setAssignedSquare(board[7][2]);
-        board[7][3].getPiece().setAssignedSquare(board[7][3]);
-        board[7][4].getPiece().setAssignedSquare(board[7][4]);
-        board[7][5].getPiece().setAssignedSquare(board[7][5]);
-        board[7][6].getPiece().setAssignedSquare(board[7][6]);
-        board[7][7].getPiece().setAssignedSquare(board[7][7]);
+        setupAssignedSquareForPiece(7);
         setupWhitePawns();
     }
 

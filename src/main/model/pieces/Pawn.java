@@ -51,12 +51,34 @@ public class Pawn extends Piece {
         }
     }
 
+//    private void diagonalForWhitePawn(int i, int j) {
+//        Square square;
+//        if (i > 0) {
+//            if (j > 0 && j < 7) {
+//                square = board.getSquareAt(i - 1, j - 1);
+//                if (square.getPiece() != null && isBlackButNotKing(square)) {
+//                    validSquares.add(square);
+//                }
+//                square = board.getSquareAt(i - 1, j + 1);
+//            } else {
+//                if (j == 0) {
+//                    square = board.getSquareAt(i - 1, j + 1);
+//                } else {
+//                    square = board.getSquareAt(i - 1, j - 1);
+//                }
+//            }
+//            if (square.getPiece() != null && isBlackButNotKing(square)) {
+//                validSquares.add(square);
+//            }
+//        }
+//    }
+
     private void diagonalForWhitePawn(int i, int j) {
         Square square;
         if (i > 0) {
             if (j > 0 && j < 7) {
                 square = board.getSquareAt(i - 1, j - 1);
-                if (square.getPiece() != null && isBlackButNotKing(square)) {
+                if (square.getPiece() != null && isOppositeColourAndNotKing(square, this.colour)) {
                     validSquares.add(square);
                 }
                 square = board.getSquareAt(i - 1, j + 1);
@@ -67,7 +89,7 @@ public class Pawn extends Piece {
                     square = board.getSquareAt(i - 1, j - 1);
                 }
             }
-            if (square.getPiece() != null && isBlackButNotKing(square)) {
+            if (square.getPiece() != null && isOppositeColourAndNotKing(square, this.colour)) {
                 validSquares.add(square);
             }
         }
@@ -96,7 +118,7 @@ public class Pawn extends Piece {
         if (i < 7) {
             if (j > 0 && j < 7) {
                 square = board.getSquareAt(i + 1, j - 1);
-                if (square.getPiece() != null && isWhiteButNotKing(square)) {
+                if (square.getPiece() != null && isOppositeColourAndNotKing(square, this.colour)) {
                     validSquares.add(square);
                 }
                 square = board.getSquareAt(i + 1, j + 1);
@@ -107,17 +129,9 @@ public class Pawn extends Piece {
                     square = board.getSquareAt(i + 1, j - 1);
                 }
             }
-            if (square.getPiece() != null && isWhiteButNotKing(square)) {
+            if (square.getPiece() != null && isOppositeColourAndNotKing(square, this.colour)) {
                 validSquares.add(square);
             }
         }
-    }
-
-    private boolean isBlackButNotKing(Square square) {
-        return (square.getPiece().getColour() == PieceColour.BLACK && square.getPiece().getName() != Name.KING);
-    }
-
-    private boolean isWhiteButNotKing(Square square) {
-        return (square.getPiece().getColour() == PieceColour.WHITE && square.getPiece().getName() != Name.KING);
     }
 }

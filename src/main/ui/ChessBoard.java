@@ -21,21 +21,17 @@ public class ChessBoard extends JPanel {
     public Color darkColour;
     private JLabel background;
     private final Board board;
-//    private final JComponent[][] squares;
-    //private final JComponent[][] piece;
     private Square selectedSquare;
     private boolean pieceIsSelected;
     private Color lightHighlightColour;
     private Color darkHighlightColour;
     private BoardTheme boardTheme = BoardTheme.GREEN;
-    private int xcor;
-    private int ycor;
+    private int xCor;
+    private int yCor;
 
     public ChessBoard() {
         this.board = new Board();
-//        this.squares = new JPanel[8][8];
         pieceIsSelected = false;
-        //this.piece = new JLabel[8][8];
         initialiseGraphics();
         renderSquares();
         mouseEvents();
@@ -60,11 +56,9 @@ public class ChessBoard extends JPanel {
             for (int j = 0; j < 8; ++j) {
                 JComponent square = new JPanel();
                 setupSquare(i, j, square);
-//                this.squares[i][j] = square;
                 add(square);
                 if (board.getSquareAt(i, j).getPiece() != null) {
                     setPieceImage(i, j);
-                    //this.piece[i][j] = background;
                     square.add(background);
                 }
             }
@@ -94,14 +88,6 @@ public class ChessBoard extends JPanel {
         background = new JLabel("", icon, JLabel.CENTER);
     }
 
-    public void switchSquareColour(int i, int j, JComponent square) {
-        if (square.getBackground() != Color.RED) {
-            square.setBackground(Color.RED);
-        } else {
-            setupSquareBgColour(i, j, square);
-        }
-    }
-
     //REQUIRES: i and j must be within [0,7], square != null
     //MODIFIES: square
     //EFFECTS: applies lightColour as the bg colour to the given square if i+j is even, else applies the darkColour
@@ -118,12 +104,14 @@ public class ChessBoard extends JPanel {
                 square.setBackground(darkHighlightColour);
             }
         }
-        if (selectedSquare != null && (selectedSquare.getRow() == i && selectedSquare.getColumn() == j) && selectedSquare.getPiece() != null) {
+        if (selectedSquare != null && isThatSquare(i, j, selectedSquare) && selectedSquare.getPiece() != null) {
             square.setBackground(Color.RED);
         }
     }
 
-
+    private boolean isThatSquare(int i, int j, Square square) {
+        return square.getRow() == i && square.getColumn() == j;
+    }
 
 
     //MODIFIES: this
@@ -175,16 +163,13 @@ public class ChessBoard extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                xcor = getJ(x);
-                ycor = getI(y);
+                xCor = getJ(x);
+                yCor = getI(y);
                 selectedSquare = getSquareAt(x, y);
                 Piece piece = selectedSquare.getPiece();
                 if (piece != null) {
                     selectedSquare.getPiece().calculateValidSquares();
                 }
-//                else {
-//                    selectedSquare = new Square(100,100);
-//                }
                 pieceIsSelected = selectedSquare.getPiece() != null;
                 refresh();
             }
@@ -196,7 +181,6 @@ public class ChessBoard extends JPanel {
                 int y = e.getY();
                 selectedSquare = getSquareAt(x, y);
                 pieceIsSelected = selectedSquare.getPiece() != null;
-//                squares[selectedSquare.getRow()][selectedSquare.getColumn()].setBackground(Color.RED);
             }
 
             @Override
@@ -204,10 +188,7 @@ public class ChessBoard extends JPanel {
                 System.out.println("released");
                 int x = e.getX();
                 int y = e.getY();
-                System.out.println("ycor=" + ycor + ", xcor=" + xcor);
-                System.out.println("selected i=" + selectedSquare.getRow() + ", selected j=" + selectedSquare.getColumn());
-                System.out.println("i=" + getI(y) + ", j=" + getJ(x));
-                if (xcor != getJ(x) || ycor != getI(y)) {
+                if (xCor != getJ(x) || yCor != getI(y)) {
                     if (board.movePiece(selectedSquare.getRow(), selectedSquare.getColumn(), getI(y), getJ(x))) {
                         board.showBoard();
                         selectedSquare = null;
@@ -233,7 +214,7 @@ public class ChessBoard extends JPanel {
         });
     }
 
-    //EFFECTS: refreshes the ChessBoard by removing all elements and then rendering all the squares
+    //EFFECTS: refreshes the ChessBoard by removing all elements and adding them again
     public void refresh() {
         removeAll();
         renderSquares();

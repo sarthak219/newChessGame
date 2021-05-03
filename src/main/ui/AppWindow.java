@@ -19,6 +19,7 @@ public class AppWindow extends JFrame {
     // EFFECTS: initializes the window with WIDTH and HEIGHT and a bg colour
     public void initialiseGraphics() {
         setSize(new Dimension(WIDTH, HEIGHT));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(new Color(19, 19, 19));
         setLocationRelativeTo(null);
