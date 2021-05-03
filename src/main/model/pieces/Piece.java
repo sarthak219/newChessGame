@@ -71,15 +71,20 @@ public abstract class Piece {
         Square square;
         while (i >= 0) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i--;
         }
+    }
+
+    private boolean checkPieceValidity(Square square) {
+        if (square.getPiece() != null) {
+            if (isOppositeColourAndNotKing(square, this.colour)) {
+                this.validSquares.add(square);
+            }
+            return true;
+        }
+        return false;
     }
 
     //MODIFIES: this
@@ -91,12 +96,7 @@ public abstract class Piece {
         Square square;
         while (i <= 7) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i++;
         }
@@ -111,12 +111,7 @@ public abstract class Piece {
         Square square;
         while (j >= 0) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             j--;
         }
@@ -132,12 +127,7 @@ public abstract class Piece {
         Square square;
         while (j <= 7) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             j++;
         }
@@ -152,12 +142,7 @@ public abstract class Piece {
         Square square;
         while (i >= 0 && j <= 7) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i--;
             j++;
@@ -173,12 +158,7 @@ public abstract class Piece {
         Square square;
         while (i >= 0 && j >= 0) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i--;
             j--;
@@ -194,12 +174,7 @@ public abstract class Piece {
         Square square;
         while (i <= 7 && j <= 7) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i++;
             j++;
@@ -215,12 +190,7 @@ public abstract class Piece {
         Square square;
         while (i <= 7 && j >= 0) {
             square = board.getSquareAt(i, j);
-            if (square.getPiece() != null) {
-                if (isOppositeColourAndNotKing(square, this.colour)) {
-                    this.validSquares.add(square);
-                }
-                return;
-            }
+            if (checkPieceValidity(square)) return;
             this.validSquares.add(square);
             i++;
             j--;
