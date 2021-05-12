@@ -8,9 +8,20 @@ import java.util.ArrayList;
  * represents the Rook piece of a chess game
  */
 public class Rook extends Piece {
+    private boolean hasMoved;
+
     public Rook(PieceColour colour, Board board) {
         super(colour, board);
         this.name = Name.ROOK;
+        this.hasMoved = false;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     @Override

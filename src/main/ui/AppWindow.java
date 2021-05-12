@@ -1,5 +1,7 @@
 package main.ui;
 
+import main.sound.SoundManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,9 +13,11 @@ public class AppWindow extends JFrame {
     public static final int HEIGHT = 800;
 
     public AppWindow() {
+        SoundManager soundManager = new SoundManager();
         initialiseGraphics();
         add(new GameScreen(WIDTH, HEIGHT));
         setVisible(true);
+        soundManager.play("./sounds/newGame.wav");
     }
 
     // EFFECTS: initializes the window with WIDTH and HEIGHT and a bg colour

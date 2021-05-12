@@ -1,5 +1,7 @@
 package main.ui;
 
+import main.sound.SoundManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,6 +57,7 @@ public class GameScreen extends JPanel implements ActionListener {
     //EFFECTS: resets the this.board to a new ChessBoard, removes all the elements from the GameScreen, re-adds them
     // to GameScreen and then refreshes the frame
     public void newGame() {
+        SoundManager soundManager = new SoundManager();
         removeAll();
         chessBoard = new ChessBoard();
         add(chessBoard);
@@ -62,6 +65,7 @@ public class GameScreen extends JPanel implements ActionListener {
         addThemeRadioButtons();
         repaint();
         validate();
+        soundManager.play("./sounds/newGame.wav");
     }
 
     //EFFECTS: adds radio buttons to with different themes to choose from

@@ -9,10 +9,32 @@ import java.util.ArrayList;
  * represents the King piece of a chess game
  */
 public class King extends Piece {
+    private boolean hasMoved;
+    private boolean canShortCastle;
+    private boolean canLongCastle;
 
     public King(PieceColour colour, Board board) {
         super(colour, board);
         this.name = Name.KING;
+        this.hasMoved = false;
+        this.canShortCastle = false;
+        this.canLongCastle = false;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
+    }
+
+    public void setCanShortCastle(boolean canShortCastle) {
+        this.canShortCastle = canShortCastle;
+    }
+
+    public boolean canShortCastle() {
+        return canShortCastle;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 
     @Override
@@ -24,12 +46,17 @@ public class King extends Piece {
     public void calculateValidSquares() {
         this.validSquares = new ArrayList<>();
         int i = this.assignedSquare.getRow();
+        int j = this.assignedSquare.getColumn();
         int start;
         int end;
         start = i - 1;
         end = i + 1;
         for (int k = start; k <= end; ++k) {
             checkRow(k);
+        }
+        if (canShortCastle) {
+            if (j + 2 < 7)                                                              //remove later
+                this.validSquares.add(board.getSquareAt(i, j + 2));
         }
     }
 

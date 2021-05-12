@@ -3,7 +3,9 @@ package main.ui;
 
 import main.model.Board;
 import main.model.Square;
+import main.model.pieces.Name;
 import main.model.pieces.Piece;
+import main.sound.SoundManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,12 +28,14 @@ public class ChessBoard extends JPanel {
     private Color lightHighlightColour;
     private Color darkHighlightColour;
     private BoardTheme boardTheme = BoardTheme.GREEN;
+    private final SoundManager soundManager;
     private int xCor;
     private int yCor;
 
     public ChessBoard() {
         this.board = new Board();
         pieceIsSelected = false;
+        soundManager = new SoundManager();
         initialiseGraphics();
         renderSquares();
         mouseEvents();
@@ -169,7 +173,11 @@ public class ChessBoard extends JPanel {
                 selectedSquare = getSquareAt(x, y);
                 Piece piece = selectedSquare.getPiece();
                 if (piece != null) {
+                    if (piece.getName() == Name.KING) {
+                        board.checkShortCastleAvailability(piece, yCor);
+                    }
                     selectedSquare.getPiece().calculateValidSquares();
+                    soundManager.play("./sounds/tick.wav");
                 }
                 pieceIsSelected = selectedSquare.getPiece() != null;
                 refresh();
@@ -189,7 +197,7 @@ public class ChessBoard extends JPanel {
                 int y = e.getY();
                 if (xCor != getJ(x) || yCor != getI(y)) {
                     if (board.movePiece(selectedSquare.getRow(), selectedSquare.getColumn(), getI(y), getJ(x))) {
-                        board.showBoard();
+//                        board.showBoard();
                         selectedSquare = null;
                         pieceIsSelected = false;
                         refresh();

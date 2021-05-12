@@ -1,17 +1,24 @@
 package main.model;
 
 import main.model.pieces.*;
+import main.sound.SoundManager;
 
 /**
  * represents a chess board with 64 squares
  */
 public class Board {
     private final Square[][] board = new Square[8][8];
+    private King whiteKing;
+    private Rook whiteARook;
+    private Rook whiteHRook;
+    private King blackKing;
+    private Rook blackARook;
+    private Rook blackHRook;
 
     public Board() {
         initialiseBoard();
         placePieces();
-        showBoard();
+//        showBoard();
     }
 
     // EFFECTS: makes a chess board with 64 squares
@@ -42,6 +49,7 @@ public class Board {
         System.out.println("---------------------------------------------------------------------------");
     }
 
+    //MODIFIES: this
     //EFFECTS: places the pieces on the chess board
     public void placePieces() {
         setupBlackPieces();
@@ -50,18 +58,21 @@ public class Board {
 
     private void setupBlackPieces() {
         board[0][0].setPiece(new Rook(PieceColour.BLACK, this));
+        blackARook = (Rook) board[0][0].getPiece();
         board[0][1].setPiece(new Knight(PieceColour.BLACK, this));
         board[0][2].setPiece(new Bishop(PieceColour.BLACK, this));
         board[0][3].setPiece(new Queen(PieceColour.BLACK, this));
         board[0][4].setPiece(new King(PieceColour.BLACK, this));
+        blackKing = (King) board[0][4].getPiece();
         board[0][5].setPiece(new Bishop(PieceColour.BLACK, this));
         board[0][6].setPiece(new Knight(PieceColour.BLACK, this));
         board[0][7].setPiece(new Rook(PieceColour.BLACK, this));
-        setupAssignedSquareForPiece(0);
+        blackHRook = (Rook) board[0][7].getPiece();
+        setupAssignedSquareForPieces(0);
         setupBlackPawns();
     }
 
-    private void setupAssignedSquareForPiece(int i) {
+    private void setupAssignedSquareForPieces(int i) {
         for (int j = 0; j < 8; ++j) {
             board[i][j].getPiece().setAssignedSquare(board[i][j]);
         }
@@ -76,14 +87,17 @@ public class Board {
 
     private void setupWhitePieces() {
         board[7][0].setPiece(new Rook(PieceColour.WHITE, this));
+        whiteARook = (Rook) board[7][0].getPiece();
         board[7][1].setPiece(new Knight(PieceColour.WHITE, this));
         board[7][2].setPiece(new Bishop(PieceColour.WHITE, this));
         board[7][3].setPiece(new Queen(PieceColour.WHITE, this));
         board[7][4].setPiece(new King(PieceColour.WHITE, this));
+        whiteKing = (King) board[7][4].getPiece();
         board[7][5].setPiece(new Bishop(PieceColour.WHITE, this));
         board[7][6].setPiece(new Knight(PieceColour.WHITE, this));
         board[7][7].setPiece(new Rook(PieceColour.WHITE, this));
-        setupAssignedSquareForPiece(7);
+        whiteHRook = (Rook) board[7][7].getPiece();
+        setupAssignedSquareForPieces(7);
         setupWhitePawns();
     }
 
@@ -104,17 +118,104 @@ public class Board {
     //EFFECTS: replaces the piece present at the square at x, y with the piece present at the square at  i, j
     //         sets the piece present at i, j to null
     public boolean movePiece(int i, int j, int x, int y) {
+        SoundManager soundManager = new SoundManager();
         if ((i != x || j != y) && board[i][j].getPiece() != null) {
             Piece piece = this.board[i][j].getPiece();
+            checkShortCastleAvailability(piece, i);
             piece.calculateValidSquares();
             if (piece.canGoTo(board[x][y])) {
+                if (checkIfCastling(piece, i, j, x, y)) {
+                    return true;
+                }
+
+                boolean captured = board[x][y].getPiece() != null;
                 this.board[x][y].setPiece(piece);
                 this.board[x][y].getPiece().setAssignedSquare(board[x][y]);
                 this.board[i][j].setPiece(null);
+                checkRookAndKingMovements(piece);
+                playSound(soundManager, captured);
                 return true;
+            }
+            soundManager.play("./sounds/error.wav");
+        }
+        return false;
+    }
+
+    public boolean isShortCastling(int i, int j, int x, int y) {
+        return (i == x) && (y - j == 2);
+    }
+
+    public boolean checkIfCastling(Piece piece, int i, int j, int x, int y) {
+        if (piece.getName() == Name.KING) {
+            if (isShortCastling(i, j, x, y)) {
+                if (((King) (piece)).canShortCastle()) {
+                    shortCastle(piece.getColour(), i);
+                    return true;
+                } else return false;
             }
         }
         return false;
+    }
+
+    private void playSound(SoundManager soundManager, boolean captured) {
+        if (captured) {
+            soundManager.play("./sounds/check.wav");
+        } else {
+            soundManager.play("./sounds/pieceMoving.wav");
+        }
+    }
+
+    private void checkRookAndKingMovements(Piece piece) {
+        if (piece.getName() == Name.ROOK) {
+            ((Rook) piece).setHasMoved(true);
+        } else if (piece.getName() == Name.KING) {
+            ((King) piece).setHasMoved(true);
+            ((King) piece).setCanShortCastle(false);
+        }
+    }
+
+    private void shortCastle(PieceColour colour, int row) {
+        if (colour == PieceColour.WHITE) {
+            if (!whiteKing.hasMoved() && !whiteHRook.hasMoved() && emptyRightSide(row)) {
+                board[row][6].setPiece(board[row][4].getPiece());
+                board[row][6].getPiece().setAssignedSquare(board[row][6]);
+                board[row][4].setPiece(null);
+                board[row][5].setPiece(board[row][7].getPiece());
+                board[row][5].getPiece().setAssignedSquare(board[row][5]);
+                board[row][7].setPiece(null);
+                whiteKing.setHasMoved(true);
+                whiteHRook.setHasMoved(true);
+                whiteKing.setCanShortCastle(false);
+            }
+        } else if (colour == PieceColour.BLACK) {
+            if (!blackKing.hasMoved() && !blackHRook.hasMoved() && emptyRightSide(row)) {
+                board[row][6].setPiece(board[row][4].getPiece());
+                board[row][6].getPiece().setAssignedSquare(board[row][6]);
+                board[row][4].setPiece(null);
+                board[row][5].setPiece(board[row][7].getPiece());
+                board[row][5].getPiece().setAssignedSquare(board[row][5]);
+                board[row][7].setPiece(null);
+                blackKing.setHasMoved(true);
+                blackHRook.setHasMoved(true);
+                blackKing.setCanShortCastle(false);
+            }
+        }
+    }
+
+    public void checkShortCastleAvailability(Piece piece, int row) {
+        if (piece.getColour() == PieceColour.WHITE) {
+            if (!whiteKing.hasMoved() && !whiteHRook.hasMoved() && emptyRightSide(row)) {
+                whiteKing.setCanShortCastle(true);
+            }
+        } else if (piece.getColour() == PieceColour.BLACK) {
+            if (!blackKing.hasMoved() && !blackHRook.hasMoved() && emptyRightSide(row)) {
+                blackKing.setCanShortCastle(true);
+            }
+        }
+    }
+
+    public boolean emptyRightSide(int row) {
+        return getSquareAt(row, 5).getPiece() == null && getSquareAt(row, 6).getPiece() == null;
     }
 }
 
