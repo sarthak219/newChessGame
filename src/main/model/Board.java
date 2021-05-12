@@ -18,7 +18,7 @@ public class Board {
     public Board() {
         initialiseBoard();
         placePieces();
-//        showBoard();
+        showBoard();
     }
 
     // EFFECTS: makes a chess board with 64 squares
@@ -166,9 +166,15 @@ public class Board {
     }
 
     private void checkRookAndKingMovements(Piece piece) {
-        if (piece.getName() == Name.ROOK) {
+        if (piece.getName() == Name.ROOK && !((Rook) piece).hasMoved()) {
+            if (piece == whiteARook || piece == whiteHRook) {
+                whiteKing.setCanShortCastle(false);
+            } else if (piece == blackARook || piece == blackHRook) {
+                blackKing.setCanShortCastle(false);
+            }
             ((Rook) piece).setHasMoved(true);
         } else if (piece.getName() == Name.KING) {
+            assert piece instanceof King;
             ((King) piece).setHasMoved(true);
             ((King) piece).setCanShortCastle(false);
         }

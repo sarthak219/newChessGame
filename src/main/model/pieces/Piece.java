@@ -35,6 +35,10 @@ public abstract class Piece {
         this.assignedSquare = assignedSquare;
     }
 
+    public Square getAssignedSquare() {
+        return assignedSquare;
+    }
+
     public PieceColour getColour() {
         return colour;
     }

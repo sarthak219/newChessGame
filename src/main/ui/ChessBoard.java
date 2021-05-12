@@ -197,7 +197,7 @@ public class ChessBoard extends JPanel {
                 int y = e.getY();
                 if (xCor != getJ(x) || yCor != getI(y)) {
                     if (board.movePiece(selectedSquare.getRow(), selectedSquare.getColumn(), getI(y), getJ(x))) {
-//                        board.showBoard();
+                        board.showBoard();
                         selectedSquare = null;
                         pieceIsSelected = false;
                         refresh();
