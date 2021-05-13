@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 /**
  * represent the chessBoard
@@ -39,7 +38,7 @@ public class ChessBoard extends JPanel {
         initialiseGraphics();
         renderSquares();
         mouseEvents();
-        mouseMotionEvents();
+//        mouseMotionEvents();
         setVisible(true);
     }
 
@@ -109,7 +108,8 @@ public class ChessBoard extends JPanel {
             }
         }
         if (selectedSquare != null && isThatSquare(i, j, selectedSquare) && selectedSquare.getPiece() != null) {
-            square.setBackground(Color.RED);
+//            square.setBackground(Color.RED);
+            square.setBackground(new Color(255, 98, 98));
         }
     }
 
@@ -175,6 +175,7 @@ public class ChessBoard extends JPanel {
                 if (piece != null) {
                     if (piece.getName() == Name.KING) {
                         board.checkShortCastleAvailability(piece, yCor);
+                        board.checkLongCastleAvailability(piece, yCor);
                     }
                     selectedSquare.getPiece().calculateValidSquares();
                     soundManager.play("./sounds/tick.wav");
@@ -203,20 +204,6 @@ public class ChessBoard extends JPanel {
                         refresh();
                     }
                 }
-            }
-        });
-    }
-
-    public void mouseMotionEvents() {
-        addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-
             }
         });
     }

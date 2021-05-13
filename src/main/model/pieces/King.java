@@ -33,6 +33,14 @@ public class King extends Piece {
         return canShortCastle;
     }
 
+    public boolean canLongCastle() {
+        return canLongCastle;
+    }
+
+    public void setCanLongCastle(boolean canLongCastle) {
+        this.canLongCastle = canLongCastle;
+    }
+
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
@@ -58,6 +66,11 @@ public class King extends Piece {
             if (j + 2 < 7)                                                              //remove later
                 this.validSquares.add(board.getSquareAt(i, j + 2));
         }
+
+        if (canLongCastle) {
+            if (j - 2 > 0)                                                              //remove later
+                this.validSquares.add(board.getSquareAt(i, j - 2));
+        }
     }
 
     private void checkRow(int i) {
@@ -68,7 +81,7 @@ public class King extends Piece {
         start = j - 1;
         end = j + 1;
         for (int k = start; k <= end; ++k) {
-            if (i >= 0 && i <= 7 && j >= 0 && j <= 7) {
+            if (i >= 0 && i <= 7 && k >= 0 && k <= 7) {
                 square = board.getSquareAt(i, k);
                 if (!checkPieceValidity(square)) this.validSquares.add(square);
             }
