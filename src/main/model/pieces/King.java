@@ -63,13 +63,11 @@ public class King extends Piece {
             checkRow(k);
         }
         if (canShortCastle) {
-            if (j + 2 < 7)                                                              //remove later
-                this.validSquares.add(board.getSquareAt(i, j + 2));
+            this.validSquares.add(board.getSquareAt(i, j + 2));
         }
 
         if (canLongCastle) {
-            if (j - 2 > 0)                                                              //remove later
-                this.validSquares.add(board.getSquareAt(i, j - 2));
+            this.validSquares.add(board.getSquareAt(i, j - 2));
         }
     }
 

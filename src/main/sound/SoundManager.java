@@ -9,6 +9,8 @@ import java.io.File;
  * represents the class which plays the file at the given location
  */
 public class SoundManager {
+
+    //EFFECTS: plays the audio present at the given source
     public void play(String source) {
         try {
             File file = new File(source);

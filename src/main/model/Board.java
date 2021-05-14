@@ -1,5 +1,6 @@
 package main.model;
 
+import main.exceptions.InvalidPositionException;
 import main.model.pieces.*;
 import main.sound.SoundManager;
 
@@ -21,11 +22,16 @@ public class Board {
         showBoard();
     }
 
+    //MODIFIES: this
     // EFFECTS: makes a chess board with 64 squares
     public void initialiseBoard() {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                this.board[i][j] = new Square(i, j);
+                try {
+                    this.board[i][j] = new Square(i, j);
+                } catch (InvalidPositionException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -116,7 +122,8 @@ public class Board {
     //REQUIRES: i, j, x and y column must be between [0, 7]
     //MODIFIES: this
     //EFFECTS: replaces the piece present at the square at x, y with the piece present at the square at  i, j
-    //         sets the piece present at i, j to null
+    //         sets the piece present at i, j to null.
+    //         plays a sound if a piece was moved
     public boolean movePiece(int i, int j, int x, int y) {
         SoundManager soundManager = new SoundManager();
         if ((i != x || j != y) && board[i][j].getPiece() != null) {

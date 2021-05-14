@@ -1,5 +1,6 @@
 package main.model;
 
+import main.exceptions.InvalidPositionException;
 import main.model.pieces.Piece;
 
 public class Square {
@@ -9,9 +10,11 @@ public class Square {
     private Piece piece;        //piece currently present on the square
 
 
-    //REQUIRES: row and column must be between [0, 7]
     //EFFECTS: creates a square and names it using the given row and column
-    public Square(int row, int column) {
+    public Square(int row, int column) throws InvalidPositionException {
+        if (row > 7 || row < 0 || column < 0 || column > 7) {
+            throw new InvalidPositionException();
+        }
         this.row = row;
         this.column = column;
         this.name = (char) (column + 'a') + Integer.toString(7 - row + 1);
