@@ -14,7 +14,7 @@ This is a simple multiplayer game of chess. All pieces make valid moves such as:
 - <b>Pawns</b>: Each pawn can move one square to the front in every turn and 2 squares to the front on its first move. 
   They can also move one square diagonally to capture another piece.
   
-##Features:
+## Features:
 
 - Players can move all pieces according to the rules above.
 - Players can click on any of their piece to see all the squares it can go to.
@@ -25,9 +25,13 @@ This is a simple multiplayer game of chess. All pieces make valid moves such as:
   the rook on the castling side hasn't moved and there is no piece in between the king, and the rook on the castling side.
 - Players can choose between 6 amazing colour themes to personalize the game for themselves.
 - Players can start a new game at any point.
-  
 
-###Upcoming Features:
+# Screenshots
+- ![NewGame](https://github.com/sarthak219/newChessGame/blob/master/new_game.png)
+- ![NewGame](https://github.com/sarthak219/newChessGame/blob/master/brown_board.png)
+- ![NewGame](https://github.com/sarthak219/newChessGame/blob/master/purple_board.png)
+
+### Upcoming Features:
 - The players would be able to move in turns.
 - Players would be able to check the enemy king.
 - When in check, either the king can move out of the check, a piece can block the check, or the piece giving the check 
@@ -39,11 +43,11 @@ This is a simple multiplayer game of chess. All pieces make valid moves such as:
 - Users will be able to create accounts and save their games.
 - The players will be able to save games and go to each position in the game to analyse.
 
-###Feature Wishlist:
+### Feature Wishlist:
 - Adding animations when moving pieces.
 - Adding an engine to recommend best moves when analysing games.
 
-###Bugs:
+### Bugs:
 - Players can move out of turns.
 - The "check" functionality is missing from the game, so all related features are missing as well such as King can move to an 
   otherwise illegal square, all pieces can be moved even when the king is in check, king can castle even when in check,
