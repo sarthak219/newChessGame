@@ -1,6 +1,6 @@
 package main.model;
 
-import main.exceptions.InvalidPositionException;
+import main.exceptions.InvalidCoordinatesException;
 import main.model.pieces.*;
 import main.sound.SoundManager;
 
@@ -18,7 +18,7 @@ public class Board {
 
     public Board() {
         initialiseBoard();
-        placePieces();
+        //placePieces();
         showBoard();
     }
 
@@ -29,7 +29,7 @@ public class Board {
             for (int j = 0; j < 8; ++j) {
                 try {
                     this.board[i][j] = new Square(i, j);
-                } catch (InvalidPositionException e) {
+                } catch (InvalidCoordinatesException e) {
                     e.printStackTrace();
                 }
             }
@@ -298,6 +298,14 @@ public class Board {
             }
         }
         return true;
+    }
+
+    //REQUIRES: row, col must be in range [0,7]
+    //MODIFIES: this
+    //EFFECTS: replaces the existing piece board[row][col] with the given piece
+    public void addPieceAtPosition(Piece piece, int row, int col) {
+        board[row][col].setPiece(piece);
+        board[row][col].getPiece().setAssignedSquare(board[row][col]);
     }
 }
 

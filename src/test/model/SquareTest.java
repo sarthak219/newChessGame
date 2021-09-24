@@ -1,6 +1,6 @@
 package test.model;
 
-import main.exceptions.InvalidPositionException;
+import main.exceptions.InvalidCoordinatesException;
 import main.model.Board;
 import main.model.Square;
 import main.model.pieces.King;
@@ -19,7 +19,7 @@ public class SquareTest {
     public void setup() {
         try {
             square = new Square(0, 0);
-        } catch (InvalidPositionException e) {
+        } catch (InvalidCoordinatesException e) {
             e.printStackTrace();
         }
     }
@@ -36,7 +36,7 @@ public class SquareTest {
             square = new Square(7, 0);
             assertEquals(7, square.getRow());
             assertEquals(0, square.getColumn());
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             fail("should not have thrown exception");
         }
     }
@@ -46,7 +46,7 @@ public class SquareTest {
         try {
             square = new Square(-1, 7);
             fail("should have thrown exception");
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             // nothing needed
         }
     }
@@ -56,7 +56,7 @@ public class SquareTest {
         try {
             square = new Square(0, -1);
             fail("should have thrown exception");
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             // nothing needed
         }
     }
@@ -66,7 +66,7 @@ public class SquareTest {
         try {
             square = new Square(8, 0);
             fail("should have thrown exception");
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             // nothing needed
         }
     }
@@ -76,7 +76,7 @@ public class SquareTest {
         try {
             square = new Square(0, 10);
             fail("should have thrown exception");
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             // nothing needed
         }
     }
@@ -93,7 +93,7 @@ public class SquareTest {
             assertEquals("a1", square.getName());
             square = new Square(4, 6);
             assertEquals("g4", square.getName());
-        } catch (Exception e) {
+        } catch (InvalidCoordinatesException e) {
             fail("should not have thrown exception");
         }
     }

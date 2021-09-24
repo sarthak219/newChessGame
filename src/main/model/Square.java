@@ -1,6 +1,6 @@
 package main.model;
 
-import main.exceptions.InvalidPositionException;
+import main.exceptions.InvalidCoordinatesException;
 import main.model.pieces.Piece;
 
 public class Square {
@@ -11,9 +11,9 @@ public class Square {
 
 
     //EFFECTS: creates a square and names it using the given row and column
-    public Square(int row, int column) throws InvalidPositionException {
+    public Square(int row, int column) throws InvalidCoordinatesException {
         if (row > 7 || row < 0 || column < 0 || column > 7) {
-            throw new InvalidPositionException();
+            throw new InvalidCoordinatesException();
         }
         this.row = row;
         this.column = column;

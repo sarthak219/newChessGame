@@ -33,12 +33,12 @@ public class ChessBoard extends JPanel {
 
     public ChessBoard() {
         this.board = new Board();
+        this.board.placePieces();
         pieceIsSelected = false;
         soundManager = new SoundManager();
         initialiseGraphics();
         renderSquares();
         mouseEvents();
-//        mouseMotionEvents();
         setVisible(true);
     }
 

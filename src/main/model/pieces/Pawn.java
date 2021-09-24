@@ -51,28 +51,6 @@ public class Pawn extends Piece {
         }
     }
 
-//    private void diagonalForWhitePawn(int i, int j) {
-//        Square square;
-//        if (i > 0) {
-//            if (j > 0 && j < 7) {
-//                square = board.getSquareAt(i - 1, j - 1);
-//                if (square.getPiece() != null && isBlackButNotKing(square)) {
-//                    validSquares.add(square);
-//                }
-//                square = board.getSquareAt(i - 1, j + 1);
-//            } else {
-//                if (j == 0) {
-//                    square = board.getSquareAt(i - 1, j + 1);
-//                } else {
-//                    square = board.getSquareAt(i - 1, j - 1);
-//                }
-//            }
-//            if (square.getPiece() != null && isBlackButNotKing(square)) {
-//                validSquares.add(square);
-//            }
-//        }
-//    }
-
     private void diagonalForWhitePawn(int i, int j) {
         Square square;
         if (i > 0) {

@@ -35,12 +35,24 @@ public abstract class Piece {
         this.assignedSquare = assignedSquare;
     }
 
+    public Square getAssignedSquare() {
+        return assignedSquare;
+    }
+
     public PieceColour getColour() {
         return colour;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<Square> getValidSquares() {
+        return validSquares;
     }
 
     //EFFECTS: assigns the bg image to the piece
